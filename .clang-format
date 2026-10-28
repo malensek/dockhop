@@ -1,0 +1,15 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 120
+
+---
+Language: ObjC
+
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+ObjCBlockIndentWidth: 4
+IndentWidth: 4
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+...
