@@ -1,14 +1,14 @@
 # dockhop: app launching for cool cats
 
 This utility binds numeric hotkeys to launch or focus the apps in your macOS dock.
-By default, CMD+N is used to launch/focus, so if your dock looks like the one below
+By default, CMD+N is used to launch/focus, so if your dock looks like the one below,
 pressing CMD+1 will run Safari, CMD+2 Ghostty, and so on.
 
 <img src="docs/screenshot.jpg" alt="a macOS dock showing Finder, Safari, Ghostty, VSCode, Slack, and Mail" width="600">
 
 That's basically all you need to know. Some extra details:
 * The modifier(s) can be changed: shift, option, control, command
-* Finder can be included as `modifier`+1 (disabled by default)
+* Finder can be included as well (MOD+1) (disabled by default)
 * Only pinned apps are included (called `persistent-apps` in the dock configuration). Spacers, separators, folders, etc. are ignored.
 
 ## Build and Run
