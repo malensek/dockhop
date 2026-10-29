@@ -11,16 +11,20 @@ That's basically all you need to know. Some extra details:
 * Finder can be included as MODIFIER+1. (disabled by default)
 * Only pinned apps are included (called `persistent-apps` in the dock configuration). Spacers, separators, folders, etc. are ignored.
 
+One benefit of this simplicity is the program has a very small footprint; I've observed around ~5 MB of RAM usage on my machine.
+
 ## Homebrew
 
-Install via `brew`:
+You can install via `brew`:
 
 ```sh
 brew install malensek/brew/dockhop
 
-# Optionally, enable the service:
+# Optionally enable the service:
 brew services start malensek/brew/dockhop
 ```
+
+Or build it yourself (see below).
 
 ## Build and Run from Source
 
@@ -34,16 +38,18 @@ make install
 # Enable the login item at startup:
 make install-launchagent
 
-# Run with a different config:
-DOCKHOP_CONFIG=config.example.json ./dockhop
-
-# If you want to remove the login item:
+# If you decide you want to remove the login item:
 make remove-launchagent
+
+# Or, run the program with a different config:
+DOCKHOP_CONFIG=config.example.json ./dockhop
 ```
 
 ## Configuration
 
-If you'd like to change the defaults:
+The default CMD+N shortcut can collide with other programs' keybindings (usually used for switching tabs directly -- I've never found it to be too big of a loss).
+So, if you'd like to change the defaults:
+
 ```sh
 mkdir -p ~/.config/dockhop
 
@@ -59,10 +65,13 @@ Config precedence:
 * `~/.config/dockhop/config.json`
 * If no config is found, the defaults are used (`modifiers`: command, `includeFinder`: false)
 
-### Options
+### Options (config.json)
 
 * `modifiers`: `command`, `option`, `control`, `shift` (note that `shift` must be combined with one of the other modifiers)
 * `includeFinder`: `true` / `false`
+
+<br>
+
 
 ```
                 
