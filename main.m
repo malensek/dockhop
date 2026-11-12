@@ -9,6 +9,7 @@
     } while (0)
 
 static BOOL includeFinder = NO;
+static UInt32 stopAt = 9;
 
 static void openDockApp(NSUInteger slot) {
     NSUInteger number = slot + 1;
@@ -74,7 +75,7 @@ static OSStatus pressed(EventHandlerCallRef next, EventRef event, void *context)
             GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(key), NULL, &key);
         if (status != noErr)
             return status;
-        if (key.signature != 'dhop' || key.id >= 9)
+        if (key.signature != 'dhop' || key.id >= stopAt)
             return eventNotHandledErr;
         openDockApp(key.id);
     }
@@ -123,6 +124,18 @@ int main(void) {
         includeFinder = [config[@"includeFinder"] boolValue];
         LOG(" -> include Finder: %s", includeFinder ? "YES" : "NO");
 
+        id limit = config[@"stopAt"];
+        if (limit) {
+            if (![limit isKindOfClass:NSNumber.class] ||
+                CFGetTypeID((__bridge CFTypeRef)limit) == CFBooleanGetTypeID() ||
+                [limit doubleValue] < 1 || [limit doubleValue] > 9 ||
+                [limit doubleValue] != [limit unsignedIntValue]) {
+                FAIL("stopAt must be an integer from 1 through 9");
+            }
+            stopAt = [limit unsignedIntValue];
+        }
+        LOG(" -> stop at: %u", stopAt);
+
         id modifiers = config[@"modifiers"] ?: @[ @"command" ];
         if (![modifiers isKindOfClass:NSArray.class] || ![modifiers count]) {
             FAIL("Modifiers cannot be empty");
@@ -152,7 +165,7 @@ int main(void) {
 
         UInt32 codes[] = {kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kVK_ANSI_4, kVK_ANSI_5,
                           kVK_ANSI_6, kVK_ANSI_7, kVK_ANSI_8, kVK_ANSI_9};
-        for (UInt32 i = 0; i < 9; i++) {
+        for (UInt32 i = 0; i < stopAt; i++) {
             EventHotKeyID key = {'dhop', i};
             EventHotKeyRef hotkey;
             OSStatus status = RegisterEventHotKey(codes[i], mask, key, GetApplicationEventTarget(), 0, &hotkey);

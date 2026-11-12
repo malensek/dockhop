@@ -1,4 +1,5 @@
 {
   "modifiers": ["command"],
-  "includeFinder": false
+  "includeFinder": false,
+  "stopAt": 9
 }

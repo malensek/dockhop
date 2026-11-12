@@ -57,18 +57,30 @@ mkdir -p ~/.config/dockhop
 cp config.example.json ~/.config/dockhop/config.json
 
 # If using the homebrew installed version:
-cp -n "$(brew --prefix dockhop)/share/dockhop/config.example.json" ~/.config/dockhop/config.json
+cp -n "$(brew --prefix dockhop)/share/dockhop/config.example.json" \
+    ~/.config/dockhop/config.json
 ```
 
 Config precedence:
 * Path in `DOCKHOP_CONFIG` environment variable
 * `~/.config/dockhop/config.json`
-* If no config is found, the defaults are used (`modifiers`: command, `includeFinder`: false)
+* If no config is found, the defaults are used (`modifiers`: command, `includeFinder`: false, `stopAt`: 9)
 
 ### Options (config.json)
 
 * `modifiers`: `command`, `option`, `control`, `shift` (note that `shift` must be combined with one of the other modifiers)
 * `includeFinder`: `true` / `false`
+* `stopAt`: what key to stop at (inclusive). Defaults to 9, so all keys get mapped to a dock app.
+
+Example Config ([config.example.json](config.example.json)):
+
+```json
+{
+  "modifiers": ["command"],
+  "includeFinder": false,
+  "stopAt": 9
+}
+```
 
 <br>
 
